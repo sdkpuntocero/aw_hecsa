@@ -26,9 +26,16 @@ namespace aw_hecsa
         }
     
         public virtual DbSet<fact_estatus> fact_estatus { get; set; }
+        public virtual DbSet<fact_tipo_rfc> fact_tipo_rfc { get; set; }
         public virtual DbSet<fact_tipo_usuario> fact_tipo_usuario { get; set; }
+        public virtual DbSet<inf_clientes> inf_clientes { get; set; }
+        public virtual DbSet<inf_contacto_cliente> inf_contacto_cliente { get; set; }
+        public virtual DbSet<inf_contacto_proveedor> inf_contacto_proveedor { get; set; }
+        public virtual DbSet<inf_contribuyentes> inf_contribuyentes { get; set; }
         public virtual DbSet<inf_empresa> inf_empresa { get; set; }
+        public virtual DbSet<inf_proveedores> inf_proveedores { get; set; }
         public virtual DbSet<inf_sepomex> inf_sepomex { get; set; }
         public virtual DbSet<inf_usuarios> inf_usuarios { get; set; }
+        public virtual DbSet<inf_contacto_contribuyente> inf_contacto_contribuyente { get; set; }
     }
 }

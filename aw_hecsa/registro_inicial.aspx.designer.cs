@@ -148,6 +148,15 @@ namespace aw_hecsa {
         protected global::System.Web.UI.WebControls.TextBox txt_cp_empresa;
         
         /// <summary>
+        /// Control btn_cp_empresa.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_cp_empresa;
+        
+        /// <summary>
         /// Control mee_cp_empresa.
         /// </summary>
         /// <remarks>

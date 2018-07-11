@@ -12,12 +12,98 @@
           <Property Name="id_estatus" Type="int" Nullable="false" />
           <Property Name="desc_estatus" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="fact_tipo_rfc">
+          <Key>
+            <PropertyRef Name="id_tipo_rfc" />
+          </Key>
+          <Property Name="id_tipo_rfc" Type="int" Nullable="false" />
+          <Property Name="desc_tipo_rfc" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="fact_tipo_usuario">
           <Key>
             <PropertyRef Name="id_tipo_usuario" />
           </Key>
           <Property Name="id_tipo_usuario" Type="int" Nullable="false" />
           <Property Name="desc_tipo_usuario" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="inf_clientes">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_estatus" Type="int" />
+          <Property Name="id_tipo_rfc" Type="int" />
+          <Property Name="rfc" Type="varchar" MaxLength="14" />
+          <Property Name="razon_social" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="callenum" Type="varchar" MaxLength="50" />
+          <Property Name="id_codigo" Type="int" />
+          <Property Name="codigo_cliente" Type="varchar" MaxLength="50" />
+          <Property Name="fecha_registro" Type="date" />
+          <Property Name="id_empresa" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inf_contacto_cliente">
+          <Key>
+            <PropertyRef Name="id_contacto_cliente" />
+          </Key>
+          <Property Name="id_contacto_cliente" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_estatus" Type="int" />
+          <Property Name="nombres" Type="varchar" MaxLength="50" />
+          <Property Name="a_paterno" Type="varchar" MaxLength="50" />
+          <Property Name="a_materno" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="fecha_registro" Type="date" />
+          <Property Name="id_cliente" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'db_hecsa.dbo.inf_contacto_contribuyente' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="inf_contacto_contribuyente">
+          <Key>
+            <PropertyRef Name="id_contacto_contribuyente" />
+            <PropertyRef Name="id_contribuyente" />
+          </Key>
+          <Property Name="id_contacto_contribuyente" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_estatus" Type="int" />
+          <Property Name="nombres" Type="varchar" MaxLength="50" />
+          <Property Name="a_paterno" Type="varchar" MaxLength="50" />
+          <Property Name="a_materno" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="fecha_registro" Type="date" />
+          <Property Name="id_contribuyente" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inf_contacto_proveedor">
+          <Key>
+            <PropertyRef Name="id_contacto_proveedor" />
+          </Key>
+          <Property Name="id_contacto_proveedor" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_estatus" Type="int" />
+          <Property Name="nombres" Type="varchar" MaxLength="50" />
+          <Property Name="a_paterno" Type="varchar" MaxLength="50" />
+          <Property Name="a_materno" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="fecha_registro" Type="date" />
+          <Property Name="id_proveedor" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inf_contribuyentes">
+          <Key>
+            <PropertyRef Name="id_contribuyente" />
+          </Key>
+          <Property Name="id_contribuyente" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_estatus" Type="int" />
+          <Property Name="id_tipo_rfc" Type="int" />
+          <Property Name="rfc" Type="varchar" MaxLength="14" />
+          <Property Name="razon_social" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="callenum" Type="varchar" MaxLength="50" />
+          <Property Name="id_codigo" Type="int" />
+          <Property Name="codigo_contribuyente" Type="varchar" MaxLength="50" />
+          <Property Name="fecha_registro" Type="date" />
+          <Property Name="id_empresa" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="inf_empresa">
           <Key>
@@ -31,6 +117,23 @@
           <Property Name="callenum" Type="varchar" MaxLength="50" />
           <Property Name="id_codigo" Type="int" />
           <Property Name="fecha_registro" Type="date" />
+        </EntityType>
+        <EntityType Name="inf_proveedores">
+          <Key>
+            <PropertyRef Name="id_proveedor" />
+          </Key>
+          <Property Name="id_proveedor" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id_estatus" Type="int" />
+          <Property Name="id_tipo_rfc" Type="int" />
+          <Property Name="rfc" Type="varchar" MaxLength="14" />
+          <Property Name="razon_social" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="callenum" Type="varchar" MaxLength="50" />
+          <Property Name="id_codigo" Type="int" />
+          <Property Name="codigo_proveedor" Type="varchar" MaxLength="50" />
+          <Property Name="fecha_registro" Type="date" />
+          <Property Name="id_empresa" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="inf_sepomex">
           <Key>
@@ -70,6 +173,102 @@
           <Property Name="fecha_registro" Type="date" />
           <Property Name="id_empresa" Type="uniqueidentifier" />
         </EntityType>
+        <Association Name="FK_inf_clientes_fact_estatus">
+          <End Role="fact_estatus" Type="Self.fact_estatus" Multiplicity="0..1" />
+          <End Role="inf_clientes" Type="Self.inf_clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fact_estatus">
+              <PropertyRef Name="id_estatus" />
+            </Principal>
+            <Dependent Role="inf_clientes">
+              <PropertyRef Name="id_estatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_clientes_fact_tipo_rfc">
+          <End Role="fact_tipo_rfc" Type="Self.fact_tipo_rfc" Multiplicity="0..1" />
+          <End Role="inf_clientes" Type="Self.inf_clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fact_tipo_rfc">
+              <PropertyRef Name="id_tipo_rfc" />
+            </Principal>
+            <Dependent Role="inf_clientes">
+              <PropertyRef Name="id_tipo_rfc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_clientes_inf_empresa">
+          <End Role="inf_empresa" Type="Self.inf_empresa" Multiplicity="1" />
+          <End Role="inf_clientes" Type="Self.inf_clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="inf_clientes">
+              <PropertyRef Name="id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_clientes_inf_sepomex">
+          <End Role="inf_sepomex" Type="Self.inf_sepomex" Multiplicity="0..1" />
+          <End Role="inf_clientes" Type="Self.inf_clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_sepomex">
+              <PropertyRef Name="id_codigo" />
+            </Principal>
+            <Dependent Role="inf_clientes">
+              <PropertyRef Name="id_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_contacto_cliente_inf_clientes">
+          <End Role="inf_clientes" Type="Self.inf_clientes" Multiplicity="1" />
+          <End Role="inf_contacto_cliente" Type="Self.inf_contacto_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="inf_contacto_cliente">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_contacto_contribuyente_inf_contribuyentes">
+          <End Role="inf_contribuyentes" Type="Self.inf_contribuyentes" Multiplicity="1" />
+          <End Role="inf_contacto_contribuyente" Type="Self.inf_contacto_contribuyente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_contribuyentes">
+              <PropertyRef Name="id_contribuyente" />
+            </Principal>
+            <Dependent Role="inf_contacto_contribuyente">
+              <PropertyRef Name="id_contribuyente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_contacto_proveedor_inf_proveedores">
+          <End Role="inf_proveedores" Type="Self.inf_proveedores" Multiplicity="1" />
+          <End Role="inf_contacto_proveedor" Type="Self.inf_contacto_proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_proveedores">
+              <PropertyRef Name="id_proveedor" />
+            </Principal>
+            <Dependent Role="inf_contacto_proveedor">
+              <PropertyRef Name="id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_contribuyentes_inf_empresa">
+          <End Role="inf_empresa" Type="Self.inf_empresa" Multiplicity="1" />
+          <End Role="inf_contribuyentes" Type="Self.inf_contribuyentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="inf_contribuyentes">
+              <PropertyRef Name="id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_inf_empresa_fact_estatus">
           <End Role="fact_estatus" Type="Self.fact_estatus" Multiplicity="0..1" />
           <End Role="inf_empresa" Type="Self.inf_empresa" Multiplicity="*" />
@@ -90,6 +289,54 @@
               <PropertyRef Name="id_codigo" />
             </Principal>
             <Dependent Role="inf_empresa">
+              <PropertyRef Name="id_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_proveedores_fact_estatus">
+          <End Role="fact_estatus" Type="Self.fact_estatus" Multiplicity="0..1" />
+          <End Role="inf_proveedores" Type="Self.inf_proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fact_estatus">
+              <PropertyRef Name="id_estatus" />
+            </Principal>
+            <Dependent Role="inf_proveedores">
+              <PropertyRef Name="id_estatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_proveedores_fact_tipo_rfc">
+          <End Role="fact_tipo_rfc" Type="Self.fact_tipo_rfc" Multiplicity="0..1" />
+          <End Role="inf_proveedores" Type="Self.inf_proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fact_tipo_rfc">
+              <PropertyRef Name="id_tipo_rfc" />
+            </Principal>
+            <Dependent Role="inf_proveedores">
+              <PropertyRef Name="id_tipo_rfc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_proveedores_inf_empresa">
+          <End Role="inf_empresa" Type="Self.inf_empresa" Multiplicity="1" />
+          <End Role="inf_proveedores" Type="Self.inf_proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="inf_proveedores">
+              <PropertyRef Name="id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_proveedores_inf_sepomex">
+          <End Role="inf_sepomex" Type="Self.inf_sepomex" Multiplicity="0..1" />
+          <End Role="inf_proveedores" Type="Self.inf_proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_sepomex">
+              <PropertyRef Name="id_codigo" />
+            </Principal>
+            <Dependent Role="inf_proveedores">
               <PropertyRef Name="id_codigo" />
             </Dependent>
           </ReferentialConstraint>
@@ -132,10 +379,61 @@
         </Association>
         <EntityContainer Name="db_hecsaModelStoreContainer">
           <EntitySet Name="fact_estatus" EntityType="Self.fact_estatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="fact_tipo_rfc" EntityType="Self.fact_tipo_rfc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="fact_tipo_usuario" EntityType="Self.fact_tipo_usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inf_clientes" EntityType="Self.inf_clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inf_contacto_cliente" EntityType="Self.inf_contacto_cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inf_contacto_proveedor" EntityType="Self.inf_contacto_proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inf_contribuyentes" EntityType="Self.inf_contribuyentes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="inf_empresa" EntityType="Self.inf_empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inf_proveedores" EntityType="Self.inf_proveedores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="inf_sepomex" EntityType="Self.inf_sepomex" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="inf_usuarios" EntityType="Self.inf_usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inf_contacto_contribuyente" EntityType="Self.inf_contacto_contribuyente" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [inf_contacto_contribuyente].[id_contacto_contribuyente] AS [id_contacto_contribuyente], 
+    [inf_contacto_contribuyente].[id_estatus] AS [id_estatus], 
+    [inf_contacto_contribuyente].[nombres] AS [nombres], 
+    [inf_contacto_contribuyente].[a_paterno] AS [a_paterno], 
+    [inf_contacto_contribuyente].[a_materno] AS [a_materno], 
+    [inf_contacto_contribuyente].[telefono] AS [telefono], 
+    [inf_contacto_contribuyente].[email] AS [email], 
+    [inf_contacto_contribuyente].[fecha_registro] AS [fecha_registro], 
+    [inf_contacto_contribuyente].[id_contribuyente] AS [id_contribuyente]
+    FROM [dbo].[inf_contacto_contribuyente] AS [inf_contacto_contribuyente]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_inf_clientes_fact_estatus" Association="Self.FK_inf_clientes_fact_estatus">
+            <End Role="fact_estatus" EntitySet="fact_estatus" />
+            <End Role="inf_clientes" EntitySet="inf_clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_clientes_fact_tipo_rfc" Association="Self.FK_inf_clientes_fact_tipo_rfc">
+            <End Role="fact_tipo_rfc" EntitySet="fact_tipo_rfc" />
+            <End Role="inf_clientes" EntitySet="inf_clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_clientes_inf_empresa" Association="Self.FK_inf_clientes_inf_empresa">
+            <End Role="inf_empresa" EntitySet="inf_empresa" />
+            <End Role="inf_clientes" EntitySet="inf_clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_clientes_inf_sepomex" Association="Self.FK_inf_clientes_inf_sepomex">
+            <End Role="inf_sepomex" EntitySet="inf_sepomex" />
+            <End Role="inf_clientes" EntitySet="inf_clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_contacto_cliente_inf_clientes" Association="Self.FK_inf_contacto_cliente_inf_clientes">
+            <End Role="inf_clientes" EntitySet="inf_clientes" />
+            <End Role="inf_contacto_cliente" EntitySet="inf_contacto_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_contacto_contribuyente_inf_contribuyentes" Association="Self.FK_inf_contacto_contribuyente_inf_contribuyentes">
+            <End Role="inf_contribuyentes" EntitySet="inf_contribuyentes" />
+            <End Role="inf_contacto_contribuyente" EntitySet="inf_contacto_contribuyente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_contacto_proveedor_inf_proveedores" Association="Self.FK_inf_contacto_proveedor_inf_proveedores">
+            <End Role="inf_proveedores" EntitySet="inf_proveedores" />
+            <End Role="inf_contacto_proveedor" EntitySet="inf_contacto_proveedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_contribuyentes_inf_empresa" Association="Self.FK_inf_contribuyentes_inf_empresa">
+            <End Role="inf_empresa" EntitySet="inf_empresa" />
+            <End Role="inf_contribuyentes" EntitySet="inf_contribuyentes" />
+          </AssociationSet>
           <AssociationSet Name="FK_inf_empresa_fact_estatus" Association="Self.FK_inf_empresa_fact_estatus">
             <End Role="fact_estatus" EntitySet="fact_estatus" />
             <End Role="inf_empresa" EntitySet="inf_empresa" />
@@ -143,6 +441,22 @@
           <AssociationSet Name="FK_inf_empresa_inf_sepomex" Association="Self.FK_inf_empresa_inf_sepomex">
             <End Role="inf_sepomex" EntitySet="inf_sepomex" />
             <End Role="inf_empresa" EntitySet="inf_empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_proveedores_fact_estatus" Association="Self.FK_inf_proveedores_fact_estatus">
+            <End Role="fact_estatus" EntitySet="fact_estatus" />
+            <End Role="inf_proveedores" EntitySet="inf_proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_proveedores_fact_tipo_rfc" Association="Self.FK_inf_proveedores_fact_tipo_rfc">
+            <End Role="fact_tipo_rfc" EntitySet="fact_tipo_rfc" />
+            <End Role="inf_proveedores" EntitySet="inf_proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_proveedores_inf_empresa" Association="Self.FK_inf_proveedores_inf_empresa">
+            <End Role="inf_empresa" EntitySet="inf_empresa" />
+            <End Role="inf_proveedores" EntitySet="inf_proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_proveedores_inf_sepomex" Association="Self.FK_inf_proveedores_inf_sepomex">
+            <End Role="inf_sepomex" EntitySet="inf_sepomex" />
+            <End Role="inf_proveedores" EntitySet="inf_proveedores" />
           </AssociationSet>
           <AssociationSet Name="FK_inf_usuarios_fact_estatus" Association="Self.FK_inf_usuarios_fact_estatus">
             <End Role="fact_estatus" EntitySet="fact_estatus" />
@@ -161,14 +475,107 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="db_hecsaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="db_hecsaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="fact_estatus" EntityType="db_hecsaModel.fact_estatus" />
+          <EntitySet Name="fact_tipo_rfc" EntityType="db_hecsaModel.fact_tipo_rfc" />
+          <EntitySet Name="fact_tipo_usuario" EntityType="db_hecsaModel.fact_tipo_usuario" />
+          <EntitySet Name="inf_clientes" EntityType="db_hecsaModel.inf_clientes" />
+          <EntitySet Name="inf_contacto_cliente" EntityType="db_hecsaModel.inf_contacto_cliente" />
+          <EntitySet Name="inf_contacto_proveedor" EntityType="db_hecsaModel.inf_contacto_proveedor" />
+          <EntitySet Name="inf_contribuyentes" EntityType="db_hecsaModel.inf_contribuyentes" />
+          <EntitySet Name="inf_empresa" EntityType="db_hecsaModel.inf_empresa" />
+          <EntitySet Name="inf_proveedores" EntityType="db_hecsaModel.inf_proveedores" />
+          <EntitySet Name="inf_sepomex" EntityType="db_hecsaModel.inf_sepomex" />
+          <EntitySet Name="inf_usuarios" EntityType="db_hecsaModel.inf_usuarios" />
+          <EntitySet Name="inf_contacto_contribuyente" EntityType="db_hecsaModel.inf_contacto_contribuyente" />
+          <AssociationSet Name="FK_inf_clientes_fact_estatus" Association="db_hecsaModel.FK_inf_clientes_fact_estatus">
+            <End Role="fact_estatus" EntitySet="fact_estatus" />
+            <End Role="inf_clientes" EntitySet="inf_clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_empresa_fact_estatus" Association="db_hecsaModel.FK_inf_empresa_fact_estatus">
+            <End Role="fact_estatus" EntitySet="fact_estatus" />
+            <End Role="inf_empresa" EntitySet="inf_empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_proveedores_fact_estatus" Association="db_hecsaModel.FK_inf_proveedores_fact_estatus">
+            <End Role="fact_estatus" EntitySet="fact_estatus" />
+            <End Role="inf_proveedores" EntitySet="inf_proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_usuarios_fact_estatus" Association="db_hecsaModel.FK_inf_usuarios_fact_estatus">
+            <End Role="fact_estatus" EntitySet="fact_estatus" />
+            <End Role="inf_usuarios" EntitySet="inf_usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_clientes_fact_tipo_rfc" Association="db_hecsaModel.FK_inf_clientes_fact_tipo_rfc">
+            <End Role="fact_tipo_rfc" EntitySet="fact_tipo_rfc" />
+            <End Role="inf_clientes" EntitySet="inf_clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_proveedores_fact_tipo_rfc" Association="db_hecsaModel.FK_inf_proveedores_fact_tipo_rfc">
+            <End Role="fact_tipo_rfc" EntitySet="fact_tipo_rfc" />
+            <End Role="inf_proveedores" EntitySet="inf_proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_usuarios_fact_tipo_usuario" Association="db_hecsaModel.FK_inf_usuarios_fact_tipo_usuario">
+            <End Role="fact_tipo_usuario" EntitySet="fact_tipo_usuario" />
+            <End Role="inf_usuarios" EntitySet="inf_usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_clientes_inf_empresa" Association="db_hecsaModel.FK_inf_clientes_inf_empresa">
+            <End Role="inf_empresa" EntitySet="inf_empresa" />
+            <End Role="inf_clientes" EntitySet="inf_clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_clientes_inf_sepomex" Association="db_hecsaModel.FK_inf_clientes_inf_sepomex">
+            <End Role="inf_sepomex" EntitySet="inf_sepomex" />
+            <End Role="inf_clientes" EntitySet="inf_clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_contacto_cliente_inf_clientes" Association="db_hecsaModel.FK_inf_contacto_cliente_inf_clientes">
+            <End Role="inf_clientes" EntitySet="inf_clientes" />
+            <End Role="inf_contacto_cliente" EntitySet="inf_contacto_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_contacto_proveedor_inf_proveedores" Association="db_hecsaModel.FK_inf_contacto_proveedor_inf_proveedores">
+            <End Role="inf_proveedores" EntitySet="inf_proveedores" />
+            <End Role="inf_contacto_proveedor" EntitySet="inf_contacto_proveedor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_contacto_contribuyente_inf_contribuyentes" Association="db_hecsaModel.FK_inf_contacto_contribuyente_inf_contribuyentes">
+            <End Role="inf_contribuyentes" EntitySet="inf_contribuyentes" />
+            <End Role="inf_contacto_contribuyente" EntitySet="inf_contacto_contribuyente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_contribuyentes_inf_empresa" Association="db_hecsaModel.FK_inf_contribuyentes_inf_empresa">
+            <End Role="inf_empresa" EntitySet="inf_empresa" />
+            <End Role="inf_contribuyentes" EntitySet="inf_contribuyentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_empresa_inf_sepomex" Association="db_hecsaModel.FK_inf_empresa_inf_sepomex">
+            <End Role="inf_sepomex" EntitySet="inf_sepomex" />
+            <End Role="inf_empresa" EntitySet="inf_empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_proveedores_inf_empresa" Association="db_hecsaModel.FK_inf_proveedores_inf_empresa">
+            <End Role="inf_empresa" EntitySet="inf_empresa" />
+            <End Role="inf_proveedores" EntitySet="inf_proveedores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_usuarios_inf_empresa" Association="db_hecsaModel.FK_inf_usuarios_inf_empresa">
+            <End Role="inf_empresa" EntitySet="inf_empresa" />
+            <End Role="inf_usuarios" EntitySet="inf_usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_inf_proveedores_inf_sepomex" Association="db_hecsaModel.FK_inf_proveedores_inf_sepomex">
+            <End Role="inf_sepomex" EntitySet="inf_sepomex" />
+            <End Role="inf_proveedores" EntitySet="inf_proveedores" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="fact_estatus">
           <Key>
             <PropertyRef Name="id_estatus" />
           </Key>
           <Property Name="id_estatus" Type="Int32" Nullable="false" />
           <Property Name="desc_estatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="inf_empresa" Relationship="Self.FK_inf_empresa_fact_estatus" FromRole="fact_estatus" ToRole="inf_empresa" />
-          <NavigationProperty Name="inf_usuarios" Relationship="Self.FK_inf_usuarios_fact_estatus" FromRole="fact_estatus" ToRole="inf_usuarios" />
+          <NavigationProperty Name="inf_clientes" Relationship="db_hecsaModel.FK_inf_clientes_fact_estatus" FromRole="fact_estatus" ToRole="inf_clientes" />
+          <NavigationProperty Name="inf_empresa" Relationship="db_hecsaModel.FK_inf_empresa_fact_estatus" FromRole="fact_estatus" ToRole="inf_empresa" />
+          <NavigationProperty Name="inf_proveedores" Relationship="db_hecsaModel.FK_inf_proveedores_fact_estatus" FromRole="fact_estatus" ToRole="inf_proveedores" />
+          <NavigationProperty Name="inf_usuarios" Relationship="db_hecsaModel.FK_inf_usuarios_fact_estatus" FromRole="fact_estatus" ToRole="inf_usuarios" />
+        </EntityType>
+        <EntityType Name="fact_tipo_rfc">
+          <Key>
+            <PropertyRef Name="id_tipo_rfc" />
+          </Key>
+          <Property Name="id_tipo_rfc" Type="Int32" Nullable="false" />
+          <Property Name="desc_tipo_rfc" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="inf_clientes" Relationship="db_hecsaModel.FK_inf_clientes_fact_tipo_rfc" FromRole="fact_tipo_rfc" ToRole="inf_clientes" />
+          <NavigationProperty Name="inf_proveedores" Relationship="db_hecsaModel.FK_inf_proveedores_fact_tipo_rfc" FromRole="fact_tipo_rfc" ToRole="inf_proveedores" />
         </EntityType>
         <EntityType Name="fact_tipo_usuario">
           <Key>
@@ -176,7 +583,78 @@
           </Key>
           <Property Name="id_tipo_usuario" Type="Int32" Nullable="false" />
           <Property Name="desc_tipo_usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="inf_usuarios" Relationship="Self.FK_inf_usuarios_fact_tipo_usuario" FromRole="fact_tipo_usuario" ToRole="inf_usuarios" />
+          <NavigationProperty Name="inf_usuarios" Relationship="db_hecsaModel.FK_inf_usuarios_fact_tipo_usuario" FromRole="fact_tipo_usuario" ToRole="inf_usuarios" />
+        </EntityType>
+        <EntityType Name="inf_clientes">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="Guid" Nullable="false" />
+          <Property Name="id_estatus" Type="Int32" />
+          <Property Name="id_tipo_rfc" Type="Int32" />
+          <Property Name="rfc" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="callenum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_codigo" Type="Int32" />
+          <Property Name="codigo_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="0" />
+          <Property Name="id_empresa" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="fact_estatus" Relationship="db_hecsaModel.FK_inf_clientes_fact_estatus" FromRole="inf_clientes" ToRole="fact_estatus" />
+          <NavigationProperty Name="fact_tipo_rfc" Relationship="db_hecsaModel.FK_inf_clientes_fact_tipo_rfc" FromRole="inf_clientes" ToRole="fact_tipo_rfc" />
+          <NavigationProperty Name="inf_empresa" Relationship="db_hecsaModel.FK_inf_clientes_inf_empresa" FromRole="inf_clientes" ToRole="inf_empresa" />
+          <NavigationProperty Name="inf_sepomex" Relationship="db_hecsaModel.FK_inf_clientes_inf_sepomex" FromRole="inf_clientes" ToRole="inf_sepomex" />
+          <NavigationProperty Name="inf_contacto_cliente" Relationship="db_hecsaModel.FK_inf_contacto_cliente_inf_clientes" FromRole="inf_clientes" ToRole="inf_contacto_cliente" />
+        </EntityType>
+        <EntityType Name="inf_contacto_cliente">
+          <Key>
+            <PropertyRef Name="id_contacto_cliente" />
+          </Key>
+          <Property Name="id_contacto_cliente" Type="Guid" Nullable="false" />
+          <Property Name="id_estatus" Type="Int32" />
+          <Property Name="nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="a_paterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="a_materno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="0" />
+          <Property Name="id_cliente" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="inf_clientes" Relationship="db_hecsaModel.FK_inf_contacto_cliente_inf_clientes" FromRole="inf_contacto_cliente" ToRole="inf_clientes" />
+        </EntityType>
+        <EntityType Name="inf_contacto_proveedor">
+          <Key>
+            <PropertyRef Name="id_contacto_proveedor" />
+          </Key>
+          <Property Name="id_contacto_proveedor" Type="Guid" Nullable="false" />
+          <Property Name="id_estatus" Type="Int32" />
+          <Property Name="nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="a_paterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="a_materno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="0" />
+          <Property Name="id_proveedor" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="inf_proveedores" Relationship="db_hecsaModel.FK_inf_contacto_proveedor_inf_proveedores" FromRole="inf_contacto_proveedor" ToRole="inf_proveedores" />
+        </EntityType>
+        <EntityType Name="inf_contribuyentes">
+          <Key>
+            <PropertyRef Name="id_contribuyente" />
+          </Key>
+          <Property Name="id_contribuyente" Type="Guid" Nullable="false" />
+          <Property Name="id_estatus" Type="Int32" />
+          <Property Name="id_tipo_rfc" Type="Int32" />
+          <Property Name="rfc" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="callenum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_codigo" Type="Int32" />
+          <Property Name="codigo_contribuyente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="0" />
+          <Property Name="id_empresa" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="inf_contacto_contribuyente" Relationship="db_hecsaModel.FK_inf_contacto_contribuyente_inf_contribuyentes" FromRole="inf_contribuyentes" ToRole="inf_contacto_contribuyente" />
+          <NavigationProperty Name="inf_empresa" Relationship="db_hecsaModel.FK_inf_contribuyentes_inf_empresa" FromRole="inf_contribuyentes" ToRole="inf_empresa" />
         </EntityType>
         <EntityType Name="inf_empresa">
           <Key>
@@ -190,9 +668,34 @@
           <Property Name="callenum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="id_codigo" Type="Int32" />
           <Property Name="fecha_registro" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="fact_estatus" Relationship="Self.FK_inf_empresa_fact_estatus" FromRole="inf_empresa" ToRole="fact_estatus" />
-          <NavigationProperty Name="inf_sepomex" Relationship="Self.FK_inf_empresa_inf_sepomex" FromRole="inf_empresa" ToRole="inf_sepomex" />
-          <NavigationProperty Name="inf_usuarios" Relationship="Self.FK_inf_usuarios_inf_empresa" FromRole="inf_empresa" ToRole="inf_usuarios" />
+          <NavigationProperty Name="fact_estatus" Relationship="db_hecsaModel.FK_inf_empresa_fact_estatus" FromRole="inf_empresa" ToRole="fact_estatus" />
+          <NavigationProperty Name="inf_clientes" Relationship="db_hecsaModel.FK_inf_clientes_inf_empresa" FromRole="inf_empresa" ToRole="inf_clientes" />
+          <NavigationProperty Name="inf_contribuyentes" Relationship="db_hecsaModel.FK_inf_contribuyentes_inf_empresa" FromRole="inf_empresa" ToRole="inf_contribuyentes" />
+          <NavigationProperty Name="inf_sepomex" Relationship="db_hecsaModel.FK_inf_empresa_inf_sepomex" FromRole="inf_empresa" ToRole="inf_sepomex" />
+          <NavigationProperty Name="inf_proveedores" Relationship="db_hecsaModel.FK_inf_proveedores_inf_empresa" FromRole="inf_empresa" ToRole="inf_proveedores" />
+          <NavigationProperty Name="inf_usuarios" Relationship="db_hecsaModel.FK_inf_usuarios_inf_empresa" FromRole="inf_empresa" ToRole="inf_usuarios" />
+        </EntityType>
+        <EntityType Name="inf_proveedores">
+          <Key>
+            <PropertyRef Name="id_proveedor" />
+          </Key>
+          <Property Name="id_proveedor" Type="Guid" Nullable="false" />
+          <Property Name="id_estatus" Type="Int32" />
+          <Property Name="id_tipo_rfc" Type="Int32" />
+          <Property Name="rfc" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="razon_social" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="callenum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_codigo" Type="Int32" />
+          <Property Name="codigo_proveedor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="0" />
+          <Property Name="id_empresa" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="fact_estatus" Relationship="db_hecsaModel.FK_inf_proveedores_fact_estatus" FromRole="inf_proveedores" ToRole="fact_estatus" />
+          <NavigationProperty Name="fact_tipo_rfc" Relationship="db_hecsaModel.FK_inf_proveedores_fact_tipo_rfc" FromRole="inf_proveedores" ToRole="fact_tipo_rfc" />
+          <NavigationProperty Name="inf_contacto_proveedor" Relationship="db_hecsaModel.FK_inf_contacto_proveedor_inf_proveedores" FromRole="inf_proveedores" ToRole="inf_contacto_proveedor" />
+          <NavigationProperty Name="inf_empresa" Relationship="db_hecsaModel.FK_inf_proveedores_inf_empresa" FromRole="inf_proveedores" ToRole="inf_empresa" />
+          <NavigationProperty Name="inf_sepomex" Relationship="db_hecsaModel.FK_inf_proveedores_inf_sepomex" FromRole="inf_proveedores" ToRole="inf_sepomex" />
         </EntityType>
         <EntityType Name="inf_sepomex">
           <Key>
@@ -214,7 +717,9 @@
           <Property Name="id_asenta_cpcons" Type="Int32" />
           <Property Name="d_zona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="c_cve_ciudad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="inf_empresa" Relationship="Self.FK_inf_empresa_inf_sepomex" FromRole="inf_sepomex" ToRole="inf_empresa" />
+          <NavigationProperty Name="inf_clientes" Relationship="db_hecsaModel.FK_inf_clientes_inf_sepomex" FromRole="inf_sepomex" ToRole="inf_clientes" />
+          <NavigationProperty Name="inf_empresa" Relationship="db_hecsaModel.FK_inf_empresa_inf_sepomex" FromRole="inf_sepomex" ToRole="inf_empresa" />
+          <NavigationProperty Name="inf_proveedores" Relationship="db_hecsaModel.FK_inf_proveedores_inf_sepomex" FromRole="inf_sepomex" ToRole="inf_proveedores" />
         </EntityType>
         <EntityType Name="inf_usuarios">
           <Key>
@@ -232,13 +737,41 @@
           <Property Name="fecha_nacimiento" Type="DateTime" Precision="0" />
           <Property Name="fecha_registro" Type="DateTime" Precision="0" />
           <Property Name="id_empresa" Type="Guid" />
-          <NavigationProperty Name="fact_estatus" Relationship="Self.FK_inf_usuarios_fact_estatus" FromRole="inf_usuarios" ToRole="fact_estatus" />
-          <NavigationProperty Name="fact_tipo_usuario" Relationship="Self.FK_inf_usuarios_fact_tipo_usuario" FromRole="inf_usuarios" ToRole="fact_tipo_usuario" />
-          <NavigationProperty Name="inf_empresa" Relationship="Self.FK_inf_usuarios_inf_empresa" FromRole="inf_usuarios" ToRole="inf_empresa" />
+          <NavigationProperty Name="fact_estatus" Relationship="db_hecsaModel.FK_inf_usuarios_fact_estatus" FromRole="inf_usuarios" ToRole="fact_estatus" />
+          <NavigationProperty Name="fact_tipo_usuario" Relationship="db_hecsaModel.FK_inf_usuarios_fact_tipo_usuario" FromRole="inf_usuarios" ToRole="fact_tipo_usuario" />
+          <NavigationProperty Name="inf_empresa" Relationship="db_hecsaModel.FK_inf_usuarios_inf_empresa" FromRole="inf_usuarios" ToRole="inf_empresa" />
         </EntityType>
+        <EntityType Name="inf_contacto_contribuyente">
+          <Key>
+            <PropertyRef Name="id_contacto_contribuyente" />
+            <PropertyRef Name="id_contribuyente" />
+          </Key>
+          <Property Name="id_contacto_contribuyente" Type="Guid" Nullable="false" />
+          <Property Name="id_estatus" Type="Int32" />
+          <Property Name="nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="a_paterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="a_materno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_registro" Type="DateTime" Precision="0" />
+          <Property Name="id_contribuyente" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="inf_contribuyentes" Relationship="db_hecsaModel.FK_inf_contacto_contribuyente_inf_contribuyentes" FromRole="inf_contacto_contribuyente" ToRole="inf_contribuyentes" />
+        </EntityType>
+        <Association Name="FK_inf_clientes_fact_estatus">
+          <End Type="db_hecsaModel.fact_estatus" Role="fact_estatus" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_clientes" Role="inf_clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fact_estatus">
+              <PropertyRef Name="id_estatus" />
+            </Principal>
+            <Dependent Role="inf_clientes">
+              <PropertyRef Name="id_estatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_inf_empresa_fact_estatus">
-          <End Role="fact_estatus" Type="Self.fact_estatus" Multiplicity="0..1" />
-          <End Role="inf_empresa" Type="Self.inf_empresa" Multiplicity="*" />
+          <End Type="db_hecsaModel.fact_estatus" Role="fact_estatus" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_empresa" Role="inf_empresa" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="fact_estatus">
               <PropertyRef Name="id_estatus" />
@@ -248,9 +781,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_inf_proveedores_fact_estatus">
+          <End Type="db_hecsaModel.fact_estatus" Role="fact_estatus" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_proveedores" Role="inf_proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fact_estatus">
+              <PropertyRef Name="id_estatus" />
+            </Principal>
+            <Dependent Role="inf_proveedores">
+              <PropertyRef Name="id_estatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_inf_usuarios_fact_estatus">
-          <End Role="fact_estatus" Type="Self.fact_estatus" Multiplicity="0..1" />
-          <End Role="inf_usuarios" Type="Self.inf_usuarios" Multiplicity="*" />
+          <End Type="db_hecsaModel.fact_estatus" Role="fact_estatus" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_usuarios" Role="inf_usuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="fact_estatus">
               <PropertyRef Name="id_estatus" />
@@ -260,9 +805,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_inf_clientes_fact_tipo_rfc">
+          <End Type="db_hecsaModel.fact_tipo_rfc" Role="fact_tipo_rfc" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_clientes" Role="inf_clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fact_tipo_rfc">
+              <PropertyRef Name="id_tipo_rfc" />
+            </Principal>
+            <Dependent Role="inf_clientes">
+              <PropertyRef Name="id_tipo_rfc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_proveedores_fact_tipo_rfc">
+          <End Type="db_hecsaModel.fact_tipo_rfc" Role="fact_tipo_rfc" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_proveedores" Role="inf_proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="fact_tipo_rfc">
+              <PropertyRef Name="id_tipo_rfc" />
+            </Principal>
+            <Dependent Role="inf_proveedores">
+              <PropertyRef Name="id_tipo_rfc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_inf_usuarios_fact_tipo_usuario">
-          <End Role="fact_tipo_usuario" Type="Self.fact_tipo_usuario" Multiplicity="0..1" />
-          <End Role="inf_usuarios" Type="Self.inf_usuarios" Multiplicity="*" />
+          <End Type="db_hecsaModel.fact_tipo_usuario" Role="fact_tipo_usuario" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_usuarios" Role="inf_usuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="fact_tipo_usuario">
               <PropertyRef Name="id_tipo_usuario" />
@@ -272,9 +841,81 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_inf_clientes_inf_empresa">
+          <End Type="db_hecsaModel.inf_empresa" Role="inf_empresa" Multiplicity="1" />
+          <End Type="db_hecsaModel.inf_clientes" Role="inf_clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="inf_clientes">
+              <PropertyRef Name="id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_clientes_inf_sepomex">
+          <End Type="db_hecsaModel.inf_sepomex" Role="inf_sepomex" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_clientes" Role="inf_clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_sepomex">
+              <PropertyRef Name="id_codigo" />
+            </Principal>
+            <Dependent Role="inf_clientes">
+              <PropertyRef Name="id_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_contacto_cliente_inf_clientes">
+          <End Type="db_hecsaModel.inf_clientes" Role="inf_clientes" Multiplicity="1" />
+          <End Type="db_hecsaModel.inf_contacto_cliente" Role="inf_contacto_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_clientes">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="inf_contacto_cliente">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_contacto_proveedor_inf_proveedores">
+          <End Type="db_hecsaModel.inf_proveedores" Role="inf_proveedores" Multiplicity="1" />
+          <End Type="db_hecsaModel.inf_contacto_proveedor" Role="inf_contacto_proveedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_proveedores">
+              <PropertyRef Name="id_proveedor" />
+            </Principal>
+            <Dependent Role="inf_contacto_proveedor">
+              <PropertyRef Name="id_proveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_contacto_contribuyente_inf_contribuyentes">
+          <End Type="db_hecsaModel.inf_contribuyentes" Role="inf_contribuyentes" Multiplicity="1" />
+          <End Type="db_hecsaModel.inf_contacto_contribuyente" Role="inf_contacto_contribuyente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_contribuyentes">
+              <PropertyRef Name="id_contribuyente" />
+            </Principal>
+            <Dependent Role="inf_contacto_contribuyente">
+              <PropertyRef Name="id_contribuyente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_inf_contribuyentes_inf_empresa">
+          <End Type="db_hecsaModel.inf_empresa" Role="inf_empresa" Multiplicity="1" />
+          <End Type="db_hecsaModel.inf_contribuyentes" Role="inf_contribuyentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="inf_contribuyentes">
+              <PropertyRef Name="id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_inf_empresa_inf_sepomex">
-          <End Role="inf_sepomex" Type="Self.inf_sepomex" Multiplicity="0..1" />
-          <End Role="inf_empresa" Type="Self.inf_empresa" Multiplicity="*" />
+          <End Type="db_hecsaModel.inf_sepomex" Role="inf_sepomex" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_empresa" Role="inf_empresa" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="inf_sepomex">
               <PropertyRef Name="id_codigo" />
@@ -284,9 +925,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_inf_proveedores_inf_empresa">
+          <End Type="db_hecsaModel.inf_empresa" Role="inf_empresa" Multiplicity="1" />
+          <End Type="db_hecsaModel.inf_proveedores" Role="inf_proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_empresa">
+              <PropertyRef Name="id_empresa" />
+            </Principal>
+            <Dependent Role="inf_proveedores">
+              <PropertyRef Name="id_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_inf_usuarios_inf_empresa">
-          <End Role="inf_empresa" Type="Self.inf_empresa" Multiplicity="0..1" />
-          <End Role="inf_usuarios" Type="Self.inf_usuarios" Multiplicity="*" />
+          <End Type="db_hecsaModel.inf_empresa" Role="inf_empresa" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_usuarios" Role="inf_usuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="inf_empresa">
               <PropertyRef Name="id_empresa" />
@@ -296,34 +949,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="db_hecsaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="fact_estatus" EntityType="Self.fact_estatus" />
-          <EntitySet Name="fact_tipo_usuario" EntityType="Self.fact_tipo_usuario" />
-          <EntitySet Name="inf_empresa" EntityType="Self.inf_empresa" />
-          <EntitySet Name="inf_sepomex" EntityType="Self.inf_sepomex" />
-          <EntitySet Name="inf_usuarios" EntityType="Self.inf_usuarios" />
-          <AssociationSet Name="FK_inf_empresa_fact_estatus" Association="Self.FK_inf_empresa_fact_estatus">
-            <End Role="fact_estatus" EntitySet="fact_estatus" />
-            <End Role="inf_empresa" EntitySet="inf_empresa" />
-          </AssociationSet>
-          <AssociationSet Name="FK_inf_usuarios_fact_estatus" Association="Self.FK_inf_usuarios_fact_estatus">
-            <End Role="fact_estatus" EntitySet="fact_estatus" />
-            <End Role="inf_usuarios" EntitySet="inf_usuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_inf_usuarios_fact_tipo_usuario" Association="Self.FK_inf_usuarios_fact_tipo_usuario">
-            <End Role="fact_tipo_usuario" EntitySet="fact_tipo_usuario" />
-            <End Role="inf_usuarios" EntitySet="inf_usuarios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_inf_empresa_inf_sepomex" Association="Self.FK_inf_empresa_inf_sepomex">
-            <End Role="inf_sepomex" EntitySet="inf_sepomex" />
-            <End Role="inf_empresa" EntitySet="inf_empresa" />
-          </AssociationSet>
-          <AssociationSet Name="FK_inf_usuarios_inf_empresa" Association="Self.FK_inf_usuarios_inf_empresa">
-            <End Role="inf_empresa" EntitySet="inf_empresa" />
-            <End Role="inf_usuarios" EntitySet="inf_usuarios" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        <Association Name="FK_inf_proveedores_inf_sepomex">
+          <End Type="db_hecsaModel.inf_sepomex" Role="inf_sepomex" Multiplicity="0..1" />
+          <End Type="db_hecsaModel.inf_proveedores" Role="inf_proveedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="inf_sepomex">
+              <PropertyRef Name="id_codigo" />
+            </Principal>
+            <Dependent Role="inf_proveedores">
+              <PropertyRef Name="id_codigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -332,70 +970,177 @@
           <EntitySetMapping Name="fact_estatus">
             <EntityTypeMapping TypeName="db_hecsaModel.fact_estatus">
               <MappingFragment StoreEntitySet="fact_estatus">
-                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
                 <ScalarProperty Name="desc_estatus" ColumnName="desc_estatus" />
+                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fact_tipo_rfc">
+            <EntityTypeMapping TypeName="db_hecsaModel.fact_tipo_rfc">
+              <MappingFragment StoreEntitySet="fact_tipo_rfc">
+                <ScalarProperty Name="desc_tipo_rfc" ColumnName="desc_tipo_rfc" />
+                <ScalarProperty Name="id_tipo_rfc" ColumnName="id_tipo_rfc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="fact_tipo_usuario">
             <EntityTypeMapping TypeName="db_hecsaModel.fact_tipo_usuario">
               <MappingFragment StoreEntitySet="fact_tipo_usuario">
-                <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
                 <ScalarProperty Name="desc_tipo_usuario" ColumnName="desc_tipo_usuario" />
+                <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inf_clientes">
+            <EntityTypeMapping TypeName="db_hecsaModel.inf_clientes">
+              <MappingFragment StoreEntitySet="inf_clientes">
+                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="codigo_cliente" ColumnName="codigo_cliente" />
+                <ScalarProperty Name="id_codigo" ColumnName="id_codigo" />
+                <ScalarProperty Name="callenum" ColumnName="callenum" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="id_tipo_rfc" ColumnName="id_tipo_rfc" />
+                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inf_contacto_cliente">
+            <EntityTypeMapping TypeName="db_hecsaModel.inf_contacto_cliente">
+              <MappingFragment StoreEntitySet="inf_contacto_cliente">
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="a_materno" ColumnName="a_materno" />
+                <ScalarProperty Name="a_paterno" ColumnName="a_paterno" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
+                <ScalarProperty Name="id_contacto_cliente" ColumnName="id_contacto_cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inf_contacto_proveedor">
+            <EntityTypeMapping TypeName="db_hecsaModel.inf_contacto_proveedor">
+              <MappingFragment StoreEntitySet="inf_contacto_proveedor">
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="a_materno" ColumnName="a_materno" />
+                <ScalarProperty Name="a_paterno" ColumnName="a_paterno" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
+                <ScalarProperty Name="id_contacto_proveedor" ColumnName="id_contacto_proveedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inf_contribuyentes">
+            <EntityTypeMapping TypeName="db_hecsaModel.inf_contribuyentes">
+              <MappingFragment StoreEntitySet="inf_contribuyentes">
+                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="codigo_contribuyente" ColumnName="codigo_contribuyente" />
+                <ScalarProperty Name="id_codigo" ColumnName="id_codigo" />
+                <ScalarProperty Name="callenum" ColumnName="callenum" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="id_tipo_rfc" ColumnName="id_tipo_rfc" />
+                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
+                <ScalarProperty Name="id_contribuyente" ColumnName="id_contribuyente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="inf_empresa">
             <EntityTypeMapping TypeName="db_hecsaModel.inf_empresa">
               <MappingFragment StoreEntitySet="inf_empresa">
-                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
-                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
-                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="callenum" ColumnName="callenum" />
-                <ScalarProperty Name="id_codigo" ColumnName="id_codigo" />
                 <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="id_codigo" ColumnName="id_codigo" />
+                <ScalarProperty Name="callenum" ColumnName="callenum" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
+                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inf_proveedores">
+            <EntityTypeMapping TypeName="db_hecsaModel.inf_proveedores">
+              <MappingFragment StoreEntitySet="inf_proveedores">
+                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="codigo_proveedor" ColumnName="codigo_proveedor" />
+                <ScalarProperty Name="id_codigo" ColumnName="id_codigo" />
+                <ScalarProperty Name="callenum" ColumnName="callenum" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="id_tipo_rfc" ColumnName="id_tipo_rfc" />
+                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
+                <ScalarProperty Name="id_proveedor" ColumnName="id_proveedor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="inf_sepomex">
             <EntityTypeMapping TypeName="db_hecsaModel.inf_sepomex">
               <MappingFragment StoreEntitySet="inf_sepomex">
-                <ScalarProperty Name="id_codigo" ColumnName="id_codigo" />
-                <ScalarProperty Name="d_codigo" ColumnName="d_codigo" />
-                <ScalarProperty Name="d_asenta" ColumnName="d_asenta" />
-                <ScalarProperty Name="d_tipo_asenta" ColumnName="d_tipo_asenta" />
-                <ScalarProperty Name="d_mnpio" ColumnName="d_mnpio" />
-                <ScalarProperty Name="d_estado" ColumnName="d_estado" />
-                <ScalarProperty Name="d_ciudad" ColumnName="d_ciudad" />
-                <ScalarProperty Name="d_cp" ColumnName="d_cp" />
-                <ScalarProperty Name="c_estado" ColumnName="c_estado" />
-                <ScalarProperty Name="c_oficina" ColumnName="c_oficina" />
-                <ScalarProperty Name="c_cp" ColumnName="c_cp" />
-                <ScalarProperty Name="c_tipo_asenta" ColumnName="c_tipo_asenta" />
-                <ScalarProperty Name="c_mnpio" ColumnName="c_mnpio" />
-                <ScalarProperty Name="id_asenta_cpcons" ColumnName="id_asenta_cpcons" />
-                <ScalarProperty Name="d_zona" ColumnName="d_zona" />
                 <ScalarProperty Name="c_cve_ciudad" ColumnName="c_cve_ciudad" />
+                <ScalarProperty Name="d_zona" ColumnName="d_zona" />
+                <ScalarProperty Name="id_asenta_cpcons" ColumnName="id_asenta_cpcons" />
+                <ScalarProperty Name="c_mnpio" ColumnName="c_mnpio" />
+                <ScalarProperty Name="c_tipo_asenta" ColumnName="c_tipo_asenta" />
+                <ScalarProperty Name="c_cp" ColumnName="c_cp" />
+                <ScalarProperty Name="c_oficina" ColumnName="c_oficina" />
+                <ScalarProperty Name="c_estado" ColumnName="c_estado" />
+                <ScalarProperty Name="d_cp" ColumnName="d_cp" />
+                <ScalarProperty Name="d_ciudad" ColumnName="d_ciudad" />
+                <ScalarProperty Name="d_estado" ColumnName="d_estado" />
+                <ScalarProperty Name="d_mnpio" ColumnName="d_mnpio" />
+                <ScalarProperty Name="d_tipo_asenta" ColumnName="d_tipo_asenta" />
+                <ScalarProperty Name="d_asenta" ColumnName="d_asenta" />
+                <ScalarProperty Name="d_codigo" ColumnName="d_codigo" />
+                <ScalarProperty Name="id_codigo" ColumnName="id_codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="inf_usuarios">
             <EntityTypeMapping TypeName="db_hecsaModel.inf_usuarios">
               <MappingFragment StoreEntitySet="inf_usuarios">
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
-                <ScalarProperty Name="id_genero" ColumnName="id_genero" />
-                <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
-                <ScalarProperty Name="nombres" ColumnName="nombres" />
-                <ScalarProperty Name="a_paterno" ColumnName="a_paterno" />
-                <ScalarProperty Name="a_materno" ColumnName="a_materno" />
-                <ScalarProperty Name="codigo_usuario" ColumnName="codigo_usuario" />
-                <ScalarProperty Name="clave" ColumnName="clave" />
-                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
-                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
                 <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="codigo_usuario" ColumnName="codigo_usuario" />
+                <ScalarProperty Name="a_materno" ColumnName="a_materno" />
+                <ScalarProperty Name="a_paterno" ColumnName="a_paterno" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="id_tipo_usuario" ColumnName="id_tipo_usuario" />
+                <ScalarProperty Name="id_genero" ColumnName="id_genero" />
+                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inf_contacto_contribuyente">
+            <EntityTypeMapping TypeName="db_hecsaModel.inf_contacto_contribuyente">
+              <MappingFragment StoreEntitySet="inf_contacto_contribuyente">
+                <ScalarProperty Name="id_contribuyente" ColumnName="id_contribuyente" />
+                <ScalarProperty Name="fecha_registro" ColumnName="fecha_registro" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="a_materno" ColumnName="a_materno" />
+                <ScalarProperty Name="a_paterno" ColumnName="a_paterno" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="id_estatus" ColumnName="id_estatus" />
+                <ScalarProperty Name="id_contacto_contribuyente" ColumnName="id_contacto_contribuyente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

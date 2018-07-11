@@ -12,35 +12,29 @@ namespace aw_hecsa
     using System;
     using System.Collections.Generic;
     
-    public partial class inf_empresa
+    public partial class inf_contribuyentes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public inf_empresa()
+        public inf_contribuyentes()
         {
-            this.inf_clientes = new HashSet<inf_clientes>();
-            this.inf_contribuyentes = new HashSet<inf_contribuyentes>();
-            this.inf_proveedores = new HashSet<inf_proveedores>();
-            this.inf_usuarios = new HashSet<inf_usuarios>();
+            this.inf_contacto_contribuyente = new HashSet<inf_contacto_contribuyente>();
         }
     
-        public System.Guid id_empresa { get; set; }
+        public System.Guid id_contribuyente { get; set; }
         public Nullable<int> id_estatus { get; set; }
+        public Nullable<int> id_tipo_rfc { get; set; }
+        public string rfc { get; set; }
         public string razon_social { get; set; }
         public string telefono { get; set; }
         public string email { get; set; }
         public string callenum { get; set; }
         public Nullable<int> id_codigo { get; set; }
+        public string codigo_contribuyente { get; set; }
         public Nullable<System.DateTime> fecha_registro { get; set; }
+        public System.Guid id_empresa { get; set; }
     
-        public virtual fact_estatus fact_estatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<inf_clientes> inf_clientes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<inf_contribuyentes> inf_contribuyentes { get; set; }
-        public virtual inf_sepomex inf_sepomex { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<inf_proveedores> inf_proveedores { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<inf_usuarios> inf_usuarios { get; set; }
+        public virtual ICollection<inf_contacto_contribuyente> inf_contacto_contribuyente { get; set; }
+        public virtual inf_empresa inf_empresa { get; set; }
     }
 }

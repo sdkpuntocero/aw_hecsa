@@ -5,16 +5,35 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3f45871086ab4787bf3ba983dec85c3c" Name="Diagram1">
-        <EntityTypeShape EntityType="db_hecsaModel.fact_estatus" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_hecsaModel.fact_tipo_usuario" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_hecsaModel.inf_empresa" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_hecsaModel.inf_sepomex" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="db_hecsaModel.inf_usuarios" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="db_hecsaModel.FK_inf_empresa_fact_estatus" ManuallyRouted="false" />
-        <AssociationConnector Association="db_hecsaModel.FK_inf_usuarios_fact_estatus" ManuallyRouted="false" />
-        <AssociationConnector Association="db_hecsaModel.FK_inf_usuarios_fact_tipo_usuario" ManuallyRouted="false" />
-        <AssociationConnector Association="db_hecsaModel.FK_inf_empresa_inf_sepomex" ManuallyRouted="false" />
-        <AssociationConnector Association="db_hecsaModel.FK_inf_usuarios_inf_empresa" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="db_hecsaModel.fact_estatus" Width="1.5" PointX="0.75" PointY="9.875" />
+        <EntityTypeShape EntityType="db_hecsaModel.fact_tipo_rfc" Width="1.5" PointX="3" PointY="6.375" />
+        <EntityTypeShape EntityType="db_hecsaModel.fact_tipo_usuario" Width="1.5" PointX="3" PointY="3.125" />
+        <EntityTypeShape EntityType="db_hecsaModel.inf_clientes" Width="1.5" PointX="5.25" PointY="8.875" />
+        <EntityTypeShape EntityType="db_hecsaModel.inf_contacto_cliente" Width="1.5" PointX="7.5" PointY="9.5" />
+        <EntityTypeShape EntityType="db_hecsaModel.inf_contacto_proveedor" Width="1.5" PointX="12.5" PointY="9.5" />
+        <EntityTypeShape EntityType="db_hecsaModel.inf_contribuyentes" Width="1.5" PointX="5.25" PointY="18.75" />
+        <EntityTypeShape EntityType="db_hecsaModel.inf_empresa" Width="1.5" PointX="3" PointY="9.125" />
+        <EntityTypeShape EntityType="db_hecsaModel.inf_proveedores" Width="1.5" PointX="10.25" PointY="8.875" />
+        <EntityTypeShape EntityType="db_hecsaModel.inf_sepomex" Width="1.5" PointX="0.75" PointY="3.625" />
+        <EntityTypeShape EntityType="db_hecsaModel.inf_usuarios" Width="1.5" PointX="5.25" PointY="4" />
+        <EntityTypeShape EntityType="db_hecsaModel.inf_contacto_contribuyente" Width="1.5" PointX="7.5" PointY="19.125" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_clientes_fact_estatus" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_empresa_fact_estatus" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_proveedores_fact_estatus" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_usuarios_fact_estatus" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_clientes_fact_tipo_rfc" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_proveedores_fact_tipo_rfc" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_usuarios_fact_tipo_usuario" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_clientes_inf_empresa" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_clientes_inf_sepomex" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_contacto_cliente_inf_clientes" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_contacto_proveedor_inf_proveedores" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_contacto_contribuyente_inf_contribuyentes" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_contribuyentes_inf_empresa" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_empresa_inf_sepomex" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_proveedores_inf_empresa" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_usuarios_inf_empresa" />
+        <AssociationConnector Association="db_hecsaModel.FK_inf_proveedores_inf_sepomex" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

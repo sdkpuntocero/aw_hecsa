@@ -17,7 +17,9 @@ namespace aw_hecsa
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public inf_sepomex()
         {
+            this.inf_clientes = new HashSet<inf_clientes>();
             this.inf_empresa = new HashSet<inf_empresa>();
+            this.inf_proveedores = new HashSet<inf_proveedores>();
         }
     
         public int id_codigo { get; set; }
@@ -38,6 +40,10 @@ namespace aw_hecsa
         public string c_cve_ciudad { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<inf_clientes> inf_clientes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<inf_empresa> inf_empresa { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<inf_proveedores> inf_proveedores { get; set; }
     }
 }

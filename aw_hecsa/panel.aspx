@@ -80,15 +80,21 @@
                                         </asp:LinkButton>
                                     </li>
                                     <li>
-                                        <asp:LinkButton CssClass="buttonClass" ID="lkb_clientes" runat="server">
+                                        <asp:LinkButton CssClass="buttonClass" ID="lkb_clientes" runat="server" OnClick="lkb_clientes_Click">
                                             <i class="glyphicon glyphicon-lock" id="i_clientes" runat="server"></i>
                                             <asp:Label CssClass="buttonClass" ID="lbl_clientes" runat="server" Text="Clientes"></asp:Label>
                                         </asp:LinkButton>
                                     </li>
                                     <li>
-                                        <asp:LinkButton CssClass="buttonClass" ID="lkb_proveedores" runat="server">
+                                        <asp:LinkButton CssClass="buttonClass" ID="lkb_proveedores" runat="server" OnClick="lkb_proveedores_Click">
                                             <i class="glyphicon glyphicon-transfer" id="i_proveedores" runat="server"></i>
                                             <asp:Label CssClass="buttonClass" ID="lbl_proveedores" runat="server" Text="Proveedores"></asp:Label>
+                                        </asp:LinkButton>
+                                    </li>
+                                    <li>
+                                        <asp:LinkButton CssClass="buttonClass" ID="lkb_contribuyente" runat="server" OnClick="lkb_contribuyente_Click">
+                                            <i class="glyphicon glyphicon-transfer" id="i_contribuyente" runat="server"></i>
+                                            <asp:Label CssClass="buttonClass" ID="lbl_contribuyente" runat="server" Text="Contribuyentes"></asp:Label>
                                         </asp:LinkButton>
                                     </li>
                                     <li>
@@ -279,21 +285,80 @@
                     </asp:UpdatePanel>
                     <asp:UpdatePanel ID="up_cliente" runat="server">
                         <ContentTemplate>
-                            <div class="panel panel-default" id="pnl_cliente" runat="server" visible="true">
+                            <div class="panel panel-default" id="pnl_cliente" runat="server" visible="false">
                                 <div class="panel-heading">
-                                    <h3 class="text-center">Registro de Cliente y Contacto</h3>
+                                    <h3 class="text-center">Registro de cliente y contacto</h3>
+                                    <h3 class="panel-title text-right">
+                                        <asp:CheckBox ID="chkbox_agregar_c" runat="server" AutoPostBack="true" Text="Agregar" OnCheckedChanged="chkbox_agregar_c_CheckedChanged" />
+                                        <asp:CheckBox ID="chkbox_editar_c" runat="server" AutoPostBack="true" Text="Editar" OnCheckedChanged="chkbox_editar_c_CheckedChanged" />
+                                    </h3>
                                 </div>
                                 <div class="panel-body">
                                     <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group text-left">
+                                                <h5>
+                                                    <asp:Label CssClass="control-label" ID="lbl_buscar_cliente" runat="server" Text="*Buscar" Visible="false"></asp:Label>
+                                                </h5>
+                                                <div class="input-group">
+                                                    <asp:TextBox CssClass="form-control" ID="txt_buscar_cliente" runat="server" placeholder="Buscar rubro" Visible="false" TextMode="Search" AutoPostBack="true"></asp:TextBox>
+                                                    <span class="input-group-btn">
+                                                        <asp:Button CssClass="btn" ID="btn_buscar_cliente" runat="server" Text="Ir" Visible="false" />
+                                                    </span>
+                                                </div>
+                                                <div class="text-right">
+                                                    <asp:RequiredFieldValidator ID="rfv_buscar_cliente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_buscar_cliente" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4"></div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <asp:GridView CssClass="table" ID="gv_cliente" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" OnRowCommand="gv_cliente_RowCommand" OnSelectedIndexChanged="gv_cliente_SelectedIndexChanged">
+                                            <Columns>
+                                                <asp:BoundField DataField="codigo_cliente" HeaderText="ID" SortExpression="codigo_cliente" />
+                                                <asp:BoundField DataField="desc_tipo_rfc" HeaderText="Tipo de RFC" SortExpression="desc_tipo_rfc" />
+                                                <asp:BoundField DataField="rfc" HeaderText="RFC" SortExpression="rfc" />
+                                                <asp:BoundField DataField="razon_social" HeaderText="Razón Social" SortExpression="razon_social" />
+                                                <asp:BoundField DataField="fecha_registro" HeaderText="Fecha de Registro" SortExpression="fecha_registro" DataFormatString="{0:dd-MM-yyyy}" HtmlEncode="false" />
+                                                <asp:TemplateField HeaderText="Seleccionar">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox ID="chk_cliente" runat="server" onclick="CheckOne(this)" AutoPostBack="true" OnCheckedChanged="chk_cliente_CheckedChanged" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                        <br />
+                                    </div>
+                                    <div class="row">
                                         <div class="form-group">
                                             <div class="col-lg-3">
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_tiporfc_cliente" runat="server" Text="Tipo de RFC"></asp:Label>
+                                                    </h5>
+                                                    <asp:DropDownList CssClass="form-control" ID="ddl_tiporfc_cliente" runat="server"></asp:DropDownList>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_tiporfc_cliente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="ddl_tiporfc_cliente" InitialValue="0" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_rfc_cliente" runat="server" Text="*RFC"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_rfc_cliente" runat="server" placeholder="Capturar RFC de cliente"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_rfc_cliente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_rfc_cliente" ForeColor="DarkRed" Enable="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group text-left">
                                                     <h5>
                                                         <asp:Label CssClass="control-label" ID="lbl_nombre_cliente" runat="server" Text="*Nombre de cliente"></asp:Label>
                                                     </h5>
                                                     <asp:TextBox CssClass="form-control" ID="txt_nombre_cliente" runat="server" placeholder="Capturar nombre de cliente" AutoPostBack="true"></asp:TextBox>
                                                     <div class="text-right">
-                                                        <asp:RequiredFieldValidator ID="rfv_nombre_cliente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_nombre_cliente" ForeColor="DarkRed"></asp:RequiredFieldValidator>
+                                                        <asp:RequiredFieldValidator ID="rfv_nombre_cliente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_nombre_cliente" ForeColor="DarkRed" Enable="false"></asp:RequiredFieldValidator>
                                                     </div>
                                                 </div>
                                                 <div class="form-group text-left">
@@ -304,7 +369,6 @@
                                                     <div class="text-right">
                                                         <asp:RegularExpressionValidator ID="rfv_telefono_cliente" runat="server" ErrorMessage="*Teléfono incorrecto" ControlToValidate="txt_telefono_ccontacto" ValidationExpression="^[01]?[- .]?(\([2-9]\d{2}\)|[2-9]\d{2})[- .]?\d{3}[- .]?\d{4}$" ForeColor="DarkRed"></asp:RegularExpressionValidator>
                                                     </div>
-                                                    <br />
                                                 </div>
                                                 <div class="form-group text-left">
                                                     <h5>
@@ -313,26 +377,29 @@
                                                     <asp:TextBox CssClass="form-control" ID="txt_email_cliente" runat="server" placeholder="Capturar e-mail" TextMode="Email"></asp:TextBox>
                                                     <br />
                                                 </div>
+                                            </div>
+                                            <div class="col-lg-3">
                                                 <div class="form-group text-left">
                                                     <h5>
                                                         <asp:Label CssClass="control-label" ID="lbl_callenum_cliente" runat="server" Text="Calle ý número"></asp:Label>
                                                     </h5>
                                                     <asp:TextBox CssClass="form-control" ID="txt_callenum_cliente" runat="server" placeholder="Captura Calle ý número" AutoPostBack="true"></asp:TextBox>
                                                     <div class="text-right">
-                                                        <asp:RequiredFieldValidator ID="rfv_callenum_cliente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_callenum_cliente" ForeColor="DarkRed"></asp:RequiredFieldValidator>
+                                                        <asp:RequiredFieldValidator ID="rfv_callenum_cliente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_callenum_cliente" ForeColor="DarkRed" Enable="false"></asp:RequiredFieldValidator>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-3">
                                                 <div class="form-group text-left">
                                                     <h5>
                                                         <asp:Label CssClass="control-label" ID="lbl_cp_cliente" runat="server" Text="Código Postal"></asp:Label>
                                                     </h5>
-
-                                                    <asp:TextBox CssClass="form-control" ID="txt_cp_cliente" runat="server" placeholder="Capturar Código Postal" MaxLength="5" AutoPostBack="true"></asp:TextBox>
-                                                    <ajaxToolkit:MaskedEditExtender ID="mee_cp_cliente" runat="server" TargetControlID="txt_cp_cliente" Mask="99999" />
-
+                                                    <div class="input-group">
+                                                        <asp:TextBox CssClass="form-control" ID="txt_cp_cliente" runat="server" placeholder="Capturar Código Postal" MaxLength="5"></asp:TextBox>
+                                                        <span class="input-group-btn">
+                                                            <asp:Button CssClass="btn btn-default" ID="btn_cp_cliente" runat="server" Text="Validar" OnClick="btn_cp_cliente_Click" />
+                                                        </span>
+                                                    </div>
                                                     <div class="text-right">
+                                                        <ajaxToolkit:MaskedEditExtender ID="mee_cp_cliente" runat="server" TargetControlID="txt_cp_cliente" Mask="99999" />
                                                         <asp:RequiredFieldValidator ID="rfv_cp_cliente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_cp_cliente" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
                                                     </div>
                                                 </div>
@@ -374,18 +441,12 @@
                                                         <asp:Label CssClass="control-label" ID="lbl_apaterno_ccontacto" runat="server" Text="*Apellido Paterno"></asp:Label>
                                                     </h5>
                                                     <asp:TextBox CssClass="form-control" ID="txt_apaterno_ccontacto" runat="server" placeholder="Captura Apellido Paterno"></asp:TextBox>
-                                                    <div class="text-right">
-                                                        <asp:RequiredFieldValidator ID="rfv_apaterno_ccontacto" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_apaterno_ccontacto" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
-                                                    </div>
                                                 </div>
                                                 <div class="form-group text-left">
                                                     <h5>
                                                         <asp:Label CssClass="control-label" ID="lbl_amaterno_ccontacto" runat="server" Text="*Apellido Materno"></asp:Label>
                                                     </h5>
                                                     <asp:TextBox CssClass="form-control" ID="txt_amaterno_ccontacto" runat="server" placeholder="Captura Apellido Materno" AutoPostBack="true"></asp:TextBox>
-                                                    <div class="text-right">
-                                                        <asp:RequiredFieldValidator ID="rfv_amaterno_ccontacto" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_amaterno_ccontacto" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
@@ -407,8 +468,395 @@
                                                 </div>
                                                 <div class="text-right">
                                                     <br />
-                                                    <asp:Button CssClass="btn" ID="btn_salir_cliente" runat="server" Text="Salir" />
-                                                    <asp:Button CssClass="btn" ID="btn_guardar_cliente" runat="server" Text="Guardar" />
+                                                    <asp:Button CssClass="btn" ID="btn_guardar_cliente" runat="server" Text="Guardar" OnClick="btn_guardar_cliente_Click" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <asp:UpdatePanel ID="up_proveedor" runat="server">
+                        <ContentTemplate>
+                            <div class="panel panel-default" id="pnl_proveedor" runat="server" visible="false">
+                                <div class="panel-heading">
+                                    <h3 class="text-center">Registro de proveedor y proveedor</h3>
+                                    <h3 class="panel-title text-right">
+                                        <asp:CheckBox ID="chkbox_agregar_p" runat="server" AutoPostBack="true" Text="Agregar" OnCheckedChanged="chkbox_agregar_p_CheckedChanged" />
+                                        <asp:CheckBox ID="chkbox_editar_p" runat="server" AutoPostBack="true" Text="Editar" OnCheckedChanged="chkbox_editar_p_CheckedChanged" />
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group text-left">
+                                                <h5>
+                                                    <asp:Label CssClass="control-label" ID="lbl_buscar_proveedor" runat="server" Text="*Buscar" Visible="false"></asp:Label>
+                                                </h5>
+                                                <div class="input-group">
+                                                    <asp:TextBox CssClass="form-control" ID="txt_buscar_proveedor" runat="server" placeholder="Buscar rubro" Visible="false" TextMode="Search" AutoPostBack="true"></asp:TextBox>
+                                                    <span class="input-group-btn">
+                                                        <asp:Button CssClass="btn" ID="btn_buscar_proveedor" runat="server" Text="Ir" Visible="false" />
+                                                    </span>
+                                                </div>
+                                                <div class="text-right">
+                                                    <asp:RequiredFieldValidator ID="rfv_buscar_proveedor" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_buscar_proveedor" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4"></div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <asp:GridView CssClass="table" ID="gv_proveedor" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" OnRowCommand="gv_proveedor_RowCommand" OnSelectedIndexChanged="gv_proveedor_SelectedIndexChanged">
+                                            <Columns>
+                                                <asp:BoundField DataField="codigo_proveedor" HeaderText="ID" SortExpression="codigo_proveedor" />
+                                                <asp:BoundField DataField="desc_tipo_rfc" HeaderText="Tipo de RFC" SortExpression="desc_tipo_rfc" />
+                                                <asp:BoundField DataField="rfc" HeaderText="RFC" SortExpression="rfc" />
+                                                <asp:BoundField DataField="razon_social" HeaderText="Razón Social" SortExpression="razon_social" />
+                                                <asp:BoundField DataField="fecha_registro" HeaderText="Fecha de Registro" SortExpression="fecha_registro" DataFormatString="{0:dd-MM-yyyy}" HtmlEncode="false" />
+                                                <asp:TemplateField HeaderText="Seleccionar">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox ID="chk_proveedor" runat="server" onclick="CheckOne(this)" AutoPostBack="true" OnCheckedChanged="chk_proveedor_CheckedChanged" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                        <br />
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-lg-3">
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_tiporfc_proveedor" runat="server" Text="Tipo de RFC"></asp:Label>
+                                                    </h5>
+                                                    <asp:DropDownList CssClass="form-control" ID="ddl_tiporfc_proveedor" runat="server"></asp:DropDownList>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_tiporfc_proveedor" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="ddl_tiporfc_proveedor" InitialValue="0" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_rfc_proveedor" runat="server" Text="*RFC"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_rfc_proveedor" runat="server" placeholder="Capturar RFC de proveedor"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_rfc_proveedor" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_rfc_proveedor" ForeColor="DarkRed" Enable="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_nombre_proveedor" runat="server" Text="*Nombre de proveedor"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_nombre_proveedor" runat="server" placeholder="Capturar nombre de proveedor" AutoPostBack="true"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_nombre_proveedor" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_nombre_proveedor" ForeColor="DarkRed" Enable="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_telefono_proveedor" runat="server" Text="Teléfono"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_telefono_proveedor" runat="server" placeholder="Capturar Teléfono" TextMode="Phone"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RegularExpressionValidator ID="rfv_telefono_proveedor" runat="server" ErrorMessage="*Teléfono incorrecto" ControlToValidate="txt_telefono_cproveedor" ValidationExpression="^[01]?[- .]?(\([2-9]\d{2}\)|[2-9]\d{2})[- .]?\d{3}[- .]?\d{4}$" ForeColor="DarkRed"></asp:RegularExpressionValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_email_proveedor" runat="server" Text="e-mail"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_email_proveedor" runat="server" placeholder="Capturar e-mail" TextMode="Email"></asp:TextBox>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_callenum_proveedor" runat="server" Text="Calle ý número"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_callenum_proveedor" runat="server" placeholder="Captura Calle ý número" AutoPostBack="true"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_callenum_proveedor" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_callenum_proveedor" ForeColor="DarkRed" Enable="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_cp_proveedor" runat="server" Text="Código Postal"></asp:Label>
+                                                    </h5>
+                                                    <div class="input-group">
+                                                        <asp:TextBox CssClass="form-control" ID="txt_cp_proveedor" runat="server" placeholder="Capturar Código Postal" MaxLength="5"></asp:TextBox>
+                                                        <span class="input-group-btn">
+                                                            <asp:Button CssClass="btn btn-default" ID="btn_cp_proveedor" runat="server" Text="Validar" OnClick="btn_cp_proveedor_Click" />
+                                                        </span>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <ajaxToolkit:MaskedEditExtender ID="mee_cp_proveedor" runat="server" TargetControlID="txt_cp_proveedor" Mask="99999" />
+                                                        <asp:RequiredFieldValidator ID="rfv_cp_proveedor" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_cp_proveedor" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_colonia_proveedor" runat="server" Text="Colonia"></asp:Label>
+                                                    </h5>
+                                                    <asp:DropDownList CssClass="form-control" ID="ddl_colonia_proveedor" runat="server"></asp:DropDownList>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_colonia_proveedor" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="ddl_colonia_proveedor" InitialValue="0" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_municipio_proveedor" runat="server" Text="Municipio"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_municipio_proveedor" runat="server" placeholder="Captura Municipio" Enabled="false"></asp:TextBox>
+                                                    <br />
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_estado_proveedor" runat="server" Text="Estado"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_estado_proveedor" runat="server" placeholder="Captura Estado" Enabled="false"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_nombres_cproveedor" runat="server" Text="*Nombre(s)"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_nombres_cproveedor" runat="server" placeholder="Captura Nombre(s)"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_nombres_cproveedor" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_nombres_cproveedor" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_apaterno_cproveedor" runat="server" Text="*Apellido Paterno"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_apaterno_cproveedor" runat="server" placeholder="Captura Apellido Paterno"></asp:TextBox>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_amaterno_cproveedor" runat="server" Text="*Apellido Materno"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_amaterno_cproveedor" runat="server" placeholder="Captura Apellido Materno" AutoPostBack="true"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_telefono_cproveedor" runat="server" Text="Teléfono"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_telefono_cproveedor" runat="server" placeholder="Capturar Teléfono" TextMode="Phone"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RegularExpressionValidator ID="rfv_telefono_cproveedor" runat="server" ErrorMessage="*Teléfono incorrecto" ControlToValidate="txt_telefono_cproveedor" ValidationExpression="^[01]?[- .]?(\([2-9]\d{2}\)|[2-9]\d{2})[- .]?\d{3}[- .]?\d{4}$" ForeColor="DarkRed"></asp:RegularExpressionValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_email_cproveedor" runat="server" Text="e-mail"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_email_cproveedor" runat="server" placeholder="Capturar e-mail" TextMode="Email"></asp:TextBox>
+                                                    <br />
+                                                </div>
+                                                <div class="text-right">
+                                                    <br />
+                                                    <asp:Button CssClass="btn" ID="btn_guardar_proveedor" runat="server" Text="Guardar" OnClick="btn_guardar_proveedor_Click" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <asp:UpdatePanel ID="up_contribuyente" runat="server">
+                        <ContentTemplate>
+                            <div class="panel panel-default" id="pnl_contribuyente" runat="server" visible="false">
+                                <div class="panel-heading">
+                                    <h3 class="text-center">Registro de contribuyente y contribuyente</h3>
+                                    <h3 class="panel-title text-right">
+                                        <asp:CheckBox ID="chkbox_agregar_co" runat="server" AutoPostBack="true" Text="Agregar" OnCheckedChanged="chkbox_agregar_co_CheckedChanged" />
+                                        <asp:CheckBox ID="chkbox_editar_co" runat="server" AutoPostBack="true" Text="Editar" OnCheckedChanged="chkbox_editar_co_CheckedChanged" />
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group text-left">
+                                                <h5>
+                                                    <asp:Label CssClass="control-label" ID="lbl_buscar_contribuyente" runat="server" Text="*Buscar" Visible="false"></asp:Label>
+                                                </h5>
+                                                <div class="input-group">
+                                                    <asp:TextBox CssClass="form-control" ID="txt_buscar_contribuyente" runat="server" placeholder="Buscar rubro" Visible="false" TextMode="Search" AutoPostBack="true"></asp:TextBox>
+                                                    <span class="input-group-btn">
+                                                        <asp:Button CssClass="btn" ID="btn_buscar_contribuyente" runat="server" Text="Ir" Visible="false" />
+                                                    </span>
+                                                </div>
+                                                <div class="text-right">
+                                                    <asp:RequiredFieldValidator ID="rfv_buscar_contribuyente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_buscar_contribuyente" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4"></div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <asp:GridView CssClass="table" ID="gv_contribuyente" runat="server" AutoGenerateColumns="False" AllowPaging="true" PageSize="10" OnRowCommand="gv_contribuyente_RowCommand" OnSelectedIndexChanged="gv_contribuyente_SelectedIndexChanged">
+                                            <Columns>
+                                                <asp:BoundField DataField="codigo_contribuyente" HeaderText="ID" SortExpression="codigo_contribuyente" />
+                                                <asp:BoundField DataField="desc_tipo_rfc" HeaderText="Tipo de RFC" SortExpression="desc_tipo_rfc" />
+                                                <asp:BoundField DataField="rfc" HeaderText="RFC" SortExpression="rfc" />
+                                                <asp:BoundField DataField="razon_social" HeaderText="Razón Social" SortExpression="razon_social" />
+                                                <asp:BoundField DataField="fecha_registro" HeaderText="Fecha de Registro" SortExpression="fecha_registro" DataFormatString="{0:dd-MM-yyyy}" HtmlEncode="false" />
+                                                <asp:TemplateField HeaderText="Seleccionar">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox ID="chk_contribuyente" runat="server" onclick="CheckOne(this)" AutoPostBack="true" OnCheckedChanged="chk_contribuyente_CheckedChanged" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                        <br />
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-lg-3">
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_tiporfc_contribuyente" runat="server" Text="Tipo de RFC"></asp:Label>
+                                                    </h5>
+                                                    <asp:DropDownList CssClass="form-control" ID="ddl_tiporfc_contribuyente" runat="server"></asp:DropDownList>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_tiporfc_contribuyente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="ddl_tiporfc_contribuyente" InitialValue="0" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_rfc_contribuyente" runat="server" Text="*RFC"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_rfc_contribuyente" runat="server" placeholder="Capturar RFC de contribuyente"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_rfc_contribuyente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_rfc_contribuyente" ForeColor="DarkRed" Enable="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_nombre_contribuyente" runat="server" Text="*Nombre de contribuyente"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_nombre_contribuyente" runat="server" placeholder="Capturar nombre de contribuyente" AutoPostBack="true"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_nombre_contribuyente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_nombre_contribuyente" ForeColor="DarkRed" Enable="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_telefono_contribuyente" runat="server" Text="Teléfono"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_telefono_contribuyente" runat="server" placeholder="Capturar Teléfono" TextMode="Phone"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RegularExpressionValidator ID="rfv_telefono_contribuyente" runat="server" ErrorMessage="*Teléfono incorrecto" ControlToValidate="txt_telefono_ccontribuyente" ValidationExpression="^[01]?[- .]?(\([2-9]\d{2}\)|[2-9]\d{2})[- .]?\d{3}[- .]?\d{4}$" ForeColor="DarkRed"></asp:RegularExpressionValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_email_contribuyente" runat="server" Text="e-mail"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_email_contribuyente" runat="server" placeholder="Capturar e-mail" TextMode="Email"></asp:TextBox>
+                                                    <br />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_callenum_contribuyente" runat="server" Text="Calle ý número"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_callenum_contribuyente" runat="server" placeholder="Captura Calle ý número" AutoPostBack="true"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_callenum_contribuyente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_callenum_contribuyente" ForeColor="DarkRed" Enable="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_cp_contribuyente" runat="server" Text="Código Postal"></asp:Label>
+                                                    </h5>
+                                                    <div class="input-group">
+                                                        <asp:TextBox CssClass="form-control" ID="txt_cp_contribuyente" runat="server" placeholder="Capturar Código Postal" MaxLength="5"></asp:TextBox>
+                                                        <span class="input-group-btn">
+                                                            <asp:Button CssClass="btn btn-default" ID="btn_cp_contribuyente" runat="server" Text="Validar" OnClick="btn_cp_contribuyente_Click" />
+                                                        </span>
+                                                    </div>
+                                                    <div class="text-right">
+                                                        <ajaxToolkit:MaskedEditExtender ID="mee_cp_contribuyente" runat="server" TargetControlID="txt_cp_contribuyente" Mask="99999" />
+                                                        <asp:RequiredFieldValidator ID="rfv_cp_contribuyente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_cp_contribuyente" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_colonia_contribuyente" runat="server" Text="Colonia"></asp:Label>
+                                                    </h5>
+                                                    <asp:DropDownList CssClass="form-control" ID="ddl_colonia_contribuyente" runat="server"></asp:DropDownList>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_colonia_contribuyente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="ddl_colonia_contribuyente" InitialValue="0" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_municipio_contribuyente" runat="server" Text="Municipio"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_municipio_contribuyente" runat="server" placeholder="Captura Municipio" Enabled="false"></asp:TextBox>
+                                                    <br />
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_estado_contribuyente" runat="server" Text="Estado"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_estado_contribuyente" runat="server" placeholder="Captura Estado" Enabled="false"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_nombres_ccontribuyente" runat="server" Text="*Nombre(s)"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_nombres_ccontribuyente" runat="server" placeholder="Captura Nombre(s)"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RequiredFieldValidator ID="rfv_nombres_ccontribuyente" runat="server" ErrorMessage="*Campo Obligatorio" ControlToValidate="txt_nombres_ccontribuyente" ForeColor="DarkRed" Enabled="false"></asp:RequiredFieldValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_apaterno_ccontribuyente" runat="server" Text="*Apellido Paterno"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_apaterno_ccontribuyente" runat="server" placeholder="Captura Apellido Paterno"></asp:TextBox>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_amaterno_ccontribuyente" runat="server" Text="*Apellido Materno"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_amaterno_ccontribuyente" runat="server" placeholder="Captura Apellido Materno" AutoPostBack="true"></asp:TextBox>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_telefono_ccontribuyente" runat="server" Text="Teléfono"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_telefono_ccontribuyente" runat="server" placeholder="Capturar Teléfono" TextMode="Phone"></asp:TextBox>
+                                                    <div class="text-right">
+                                                        <asp:RegularExpressionValidator ID="rfv_telefono_ccontribuyente" runat="server" ErrorMessage="*Teléfono incorrecto" ControlToValidate="txt_telefono_ccontribuyente" ValidationExpression="^[01]?[- .]?(\([2-9]\d{2}\)|[2-9]\d{2})[- .]?\d{3}[- .]?\d{4}$" ForeColor="DarkRed"></asp:RegularExpressionValidator>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group text-left">
+                                                    <h5>
+                                                        <asp:Label CssClass="control-label" ID="lbl_email_ccontribuyente" runat="server" Text="e-mail"></asp:Label>
+                                                    </h5>
+                                                    <asp:TextBox CssClass="form-control" ID="txt_email_ccontribuyente" runat="server" placeholder="Capturar e-mail" TextMode="Email"></asp:TextBox>
+                                                    <br />
+                                                </div>
+                                                <div class="text-right">
+                                                    <br />
+                                                    <asp:Button CssClass="btn" ID="btn_guardar_contribuyente" runat="server" Text="Guardar" OnClick="btn_guardar_contribuyente_Click" />
                                                 </div>
                                             </div>
                                         </div>
@@ -429,7 +877,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="row">
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <asp:CheckBox ID="chkb_administrador" runat="server" Text="ADMINISTRADOR" OnCheckedChanged="chkb_administrador_CheckedChanged" AutoPostBack="true" />
                                             <br />
                                         </div>
@@ -541,7 +989,7 @@
         </div>
     </div>
     <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel"
-         aria-hidden="true">
+        aria-hidden="true">
         <div class="modal-dialog">
             <asp:UpdatePanel ID="upModal" runat="server" ChildrenAsTriggers="false" UpdateMode="Conditional">
                 <ContentTemplate>

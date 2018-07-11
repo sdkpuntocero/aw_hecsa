@@ -156,13 +156,34 @@
     <Compile Include="fact_estatus.cs">
       <DependentUpon>edm_hecsa.tt</DependentUpon>
     </Compile>
+    <Compile Include="fact_tipo_rfc.cs">
+      <DependentUpon>edm_hecsa.tt</DependentUpon>
+    </Compile>
     <Compile Include="fact_tipo_usuario.cs">
       <DependentUpon>edm_hecsa.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="inf_clientes.cs">
+      <DependentUpon>edm_hecsa.tt</DependentUpon>
+    </Compile>
+    <Compile Include="inf_contacto_cliente.cs">
+      <DependentUpon>edm_hecsa.tt</DependentUpon>
+    </Compile>
+    <Compile Include="inf_contacto_contribuyente.cs">
+      <DependentUpon>edm_hecsa.tt</DependentUpon>
+    </Compile>
+    <Compile Include="inf_contacto_proveedor.cs">
+      <DependentUpon>edm_hecsa.tt</DependentUpon>
+    </Compile>
+    <Compile Include="inf_contribuyentes.cs">
+      <DependentUpon>edm_hecsa.tt</DependentUpon>
+    </Compile>
     <Compile Include="inf_empresa.cs">
+      <DependentUpon>edm_hecsa.tt</DependentUpon>
+    </Compile>
+    <Compile Include="inf_proveedores.cs">
       <DependentUpon>edm_hecsa.tt</DependentUpon>
     </Compile>
     <Compile Include="inf_sepomex.cs">
